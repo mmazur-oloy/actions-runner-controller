@@ -101,8 +101,6 @@ args:
   - dockerd
   - --host=unix:///var/run/docker.sock
   - --group=$(DOCKER_GROUP_GID)
-  - --registry-mirror=http://harbor-registry.harbor.svc.cluster.local:5000
-  - --insecure-registry harbor-registry.harbor.svc.cluster.local:5000
 env:
   - name: DOCKER_GROUP_GID
     value: "123"
@@ -126,6 +124,8 @@ volumeMounts:
     mountPath: /var/run
   - name: dind-externals
     mountPath: /home/runner/externals
+  - name: docker-storage
+    mountPath: /var/lib/docker
 {{- end }}
 
 {{- define "gha-runner-scale-set.dind-volume" -}}
@@ -133,6 +133,9 @@ volumeMounts:
   emptyDir: {}
 - name: dind-externals
   emptyDir: {}
+- name: docker-storage
+  persistentVolumeClaim:
+    claimName: test-pvc
 {{- end }}
 
 {{- define "gha-runner-scale-set.tls-volume" -}}
