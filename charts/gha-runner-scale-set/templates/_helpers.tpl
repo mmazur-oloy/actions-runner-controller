@@ -101,6 +101,7 @@ args:
   - dockerd
   - --host=unix:///var/run/docker.sock
   - --group=$(DOCKER_GROUP_GID)
+  - --data-root=/mnt/docker
 env:
   - name: DOCKER_GROUP_GID
     value: "123"
@@ -125,7 +126,7 @@ volumeMounts:
   - name: dind-externals
     mountPath: /home/runner/externals
   - name: docker-storage
-    mountPath: /var/lib/docker
+    mountPath: /mnt/docker
 {{- end }}
 
 {{- define "gha-runner-scale-set.dind-volume" -}}
