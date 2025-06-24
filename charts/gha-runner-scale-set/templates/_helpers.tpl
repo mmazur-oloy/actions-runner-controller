@@ -101,6 +101,8 @@ args:
   - dockerd
   - --host=unix:///var/run/docker.sock
   - --group=$(DOCKER_GROUP_GID)
+  - --registry-mirror=http://harbor-registry.harbor.svc.cluster.local:5000
+  - --insecure-registry harbor-registry.harbor.svc.cluster.local:5000
 env:
   - name: DOCKER_GROUP_GID
     value: "123"
