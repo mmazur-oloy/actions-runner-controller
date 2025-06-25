@@ -125,8 +125,6 @@ volumeMounts:
     mountPath: /var/run
   - name: dind-externals
     mountPath: /home/runner/externals
-  - name: docker-storage
-    mountPath: /mnt/docker
 {{- end }}
 
 {{- define "gha-runner-scale-set.dind-volume" -}}
@@ -134,9 +132,6 @@ volumeMounts:
   emptyDir: {}
 - name: dind-externals
   emptyDir: {}
-- name: docker-storage
-  persistentVolumeClaim:
-    claimName: test-pvc
 {{- end }}
 
 {{- define "gha-runner-scale-set.tls-volume" -}}
